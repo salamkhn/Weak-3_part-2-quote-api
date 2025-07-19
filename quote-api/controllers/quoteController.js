@@ -39,7 +39,7 @@ export const insertQuote = async (req, res, next) => {
 //showallquote
 export const showallQuote = async (req, res, next) => {
   try {
-    const { category, author, page = 2, limit = 3 } = req.query;
+    const { category, author, page = 1, limit } = req.query;
 
     let queryObj = {};
     if (category) {
@@ -52,7 +52,6 @@ export const showallQuote = async (req, res, next) => {
 
     // if there is page and limits than how we can handale it
 
-    console.log("quryObj :", queryObj);
     let skip = (page - 1) * limit;
 
     const allQuotes = await quote.find(queryObj).skip(skip).limit(limit);
@@ -76,7 +75,7 @@ export const showallQuote = async (req, res, next) => {
 };
 
 //getquote by id
-export const getquotebyId = async (req, res) => {
+export const getquotebyId = async (req, res, next) => {
   try {
     const id = req.params.id;
 
@@ -102,7 +101,7 @@ export const getquotebyId = async (req, res) => {
 };
 
 //get by id and update
-export const getquotebyIdandupdate = async (req, res) => {
+export const getquotebyIdandupdate = async (req, res, next) => {
   try {
     const { author, Quote, category } = req.body;
     const id = req.params.id;
